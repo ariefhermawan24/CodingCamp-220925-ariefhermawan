@@ -1,9 +1,80 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    setupInputListeners(); 
+    setupWelcomeModal(); // <-- NEW
+    setupInputListeners();
     setupNameFieldRestriction();
 });
 
+function setupWelcomeModal() {
+    const mainContent = document.getElementById('main-content');
+    const modal = document.getElementById('welcome-modal');
+    const modalContent = document.getElementById('modal-content-wrapper');
+
+    const input = document.getElementById('modal-username-input');
+    const submitBtn = document.getElementById('modal-submit-button');
+    const guestBtn = document.getElementById('modal-guest-button');
+    const errorMsg = document.getElementById('modal-error-message');
+    const usernameDisplay = document.getElementById('username');
+    
+    modal.classList.remove('hidden');
+    modalContent.classList.remove('-translate-y-full'); // Ensure proper positioning
+    mainContent.classList.add('opacity-0'); // Hide main content
+
+    // Helper function to process the name and close the modal
+    const processName = (name) => {
+        let finalName = name.trim();
+        if (finalName === "") {
+            finalName = "Guest";
+        } else {
+            // Capitalize first letter
+            finalName = finalName.charAt(0).toUpperCase() + finalName.slice(1);
+        }
+
+        usernameDisplay.textContent = finalName;
+
+        // SHOW MAIN CONTENT
+        mainContent.classList.remove('opacity-0');
+
+        // Hide modal with transition
+        modal.style.opacity = 0;
+
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            
+            // Scroll to home section after closing
+            const homeSection = document.getElementById('home');
+            if (homeSection) {
+                homeSection.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        }, 500);
+    };
+
+    // 1. Submit Button Listener
+    submitBtn.addEventListener('click', () => {
+        const nameValue = input.value.trim();
+        if (nameValue === "") {
+            errorMsg.textContent = "Name cannot be empty.";
+            errorMsg.classList.remove('hidden');
+        } else {
+            errorMsg.classList.add('hidden');
+            processName(nameValue);
+        }
+    });
+
+    // 2. Keep as Guest Button Listener
+    guestBtn.addEventListener('click', () => {
+        processName("Guest");
+    });
+
+    // 3. Prevent submission via Enter key on the modal input
+    input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            submitBtn.click();
+        }
+    });
+}
 /**
  * Helper function to toggle error states (CSS class and message display)
  */
