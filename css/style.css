@@ -1,0 +1,61 @@
+/* Global styles */
+html {
+    /* Enable smooth scrolling for anchors */
+    scroll-behavior: smooth;
+}
+
+.font-inter {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Base adjustment for sections */
+.min-h-screen-adjust {
+    min-height: calc(100vh - 80px); 
+    /* 100vh minus header height (80px) */
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/* Logo Styling */
+.logo {
+    height: 64px;
+    width: 64px;
+    border-radius: 50%;
+    background-image: url(https://ariefhermawan.my.id/image/logo/Logo%20Portofolio.png);
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #06B6D4; /* Cyan border */
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+
+/* Header/Navigation Styling */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 20px;
+    height: 80px;
+}
+
+.nav-link {
+    display: block;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    color: #9CA3AF;
+}
+
+/* Active/Hover states for navigation links */
+.nav-link:hover {
+    color: #E5E7EB;
+    background-color: #1F2937;
+}
+
+/* Scroll offset for fixed header */
+#home,
+#profile,
+#portfolio,
+#message-us {
+    scroll-margin-top: 80px;
+}
